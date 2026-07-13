@@ -74,7 +74,6 @@ npm run lint      # Oxlint 린트 실행
 ### 꼬리말
 
 - 관련 이슈/작업이 있다면 `Resolves: #123`, `See also: #456, #789` 형식으로 표기합니다 (이슈 트래커 도입 전에는 생략 가능).
-- 마지막 줄에는 항상 `Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>`를 포함합니다.
 
 ### 기타 원칙
 
