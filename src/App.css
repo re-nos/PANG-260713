@@ -1,0 +1,6 @@
+#root {
+  display: flex;
+  place-content: center;
+  place-items: center;
+  min-height: 100vh;
+}
