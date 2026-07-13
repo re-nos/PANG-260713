@@ -9,6 +9,7 @@ import useBalloons from './useBalloons'
 import { getBalloonLevelConfig } from './balloonLevels'
 import splitBalloon from './splitBalloon'
 import ClearOverlay from './ClearOverlay'
+import LivesDisplay from './LivesDisplay'
 import { distance, circleIntersectsRect } from './collision'
 
 const PLAYER_WIDTH = 40
@@ -19,10 +20,11 @@ const PLAYER_LAUNCH_Y = window.innerHeight - PLAYER_BOTTOM_OFFSET - PLAYER_HEIGH
 const INITIAL_BALLOON_LEVEL = 3
 
 type GameStageProps = {
+  lives: number
   onPlayerHit: () => void
 }
 
-function GameStage({ onPlayerHit }: GameStageProps) {
+function GameStage({ lives, onPlayerHit }: GameStageProps) {
   const x = usePlayerMovement(window.innerWidth, PLAYER_WIDTH)
   const [wire, dismissWire] = useWireLaunch(x, PLAYER_WIDTH, PLAYER_LAUNCH_Y)
   const [balloons, setBalloons] = useBalloons(window.innerWidth, window.innerHeight, [
@@ -68,6 +70,7 @@ function GameStage({ onPlayerHit }: GameStageProps) {
 
   return (
     <div className="game-screen">
+      <LivesDisplay lives={lives} />
       <Player x={x} />
       {wire && <Wire x={wire.x} y={wire.y} />}
       {balloons.map((balloon) => (
