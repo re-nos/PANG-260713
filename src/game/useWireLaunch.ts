@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 type Wire = {
   x: number
@@ -39,7 +39,9 @@ function useWireLaunch(playerX: number, playerWidth: number, launchY: number, sp
     }
   }, [playerX, playerWidth, launchY, speed])
 
-  return wire
+  const dismissWire = useCallback(() => setWire(null), [])
+
+  return [wire, dismissWire] as const
 }
 
 export default useWireLaunch
