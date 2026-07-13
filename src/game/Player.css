@@ -1,0 +1,10 @@
+.player {
+  position: absolute;
+  bottom: 24px;
+  left: 0;
+  width: 40px;
+  height: 60px;
+  background: #c084fc;
+  border-radius: 4px;
+  will-change: transform;
+}

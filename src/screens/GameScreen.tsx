@@ -1,9 +1,15 @@
 import './GameScreen.css'
+import Player from '../game/Player'
+import usePlayerMovement from '../game/usePlayerMovement'
+
+const PLAYER_WIDTH = 40
 
 function GameScreen() {
+  const x = usePlayerMovement(window.innerWidth, PLAYER_WIDTH)
+
   return (
     <div className="game-screen">
-      <p className="game-screen__placeholder">Game Screen (Phase 3에서 채워질 예정)</p>
+      <Player x={x} />
     </div>
   )
 }
