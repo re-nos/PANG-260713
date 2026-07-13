@@ -39,3 +39,12 @@ npm run lint      # Oxlint 린트 실행
 - 각 Phase별 상세 구현 설계는 `docs/design/phase{N}.md`에 기록됩니다 (예: `docs/design/phase1.md` — Phase 1: 메인 화면 UI 설계).
 - Phase 1 설계에 따르면 화면 단위 컴포넌트는 `src/screens/` 아래에 위치하며(예: `src/screens/MainScreen.tsx`, `src/screens/MainScreen.css`), `App.tsx`는 화면 상태에 따라 해당 화면 컴포넌트를 렌더링하는 역할을 담당하도록 확장될 예정입니다.
 - 새로운 Phase를 구현하기 전에는 해당 Phase의 `docs/design/phase{N}.md` 설계 문서를 먼저 확인하고, 설계와 다르게 구현할 경우 문서도 함께 갱신하세요.
+
+## 커밋 컨벤션
+
+- 커밋 메시지 제목은 **한글**로 작성하며, 무엇을 했는지 한 줄로 요약합니다 (예: `Phase 1: 메인 화면 UI 구현 (MainScreen 컴포넌트)`).
+- Phase 구현/설계 관련 커밋은 제목을 `Phase {N}: <내용>` 형식으로 시작합니다 (예: `Phase 2: 메인 → 게임 화면 전환 구현`).
+- 문서(`docs/`, `CLAUDE.md`, `AGENTS.md` 등)만 변경하는 커밋은 어떤 문서를 왜 바꿨는지 제목에 드러나도록 작성합니다 (예: `PLAN.md의 Phase를 더 세분화하여 12단계로 재구성`).
+- 제목만으로 배경 설명이 부족할 때만 본문을 작성하고, 본문에는 "무엇을/왜"를 중심으로 간결하게 적습니다.
+- 하나의 커밋에는 하나의 논리적 변경만 담습니다 (예: Phase 구현과 무관한 리팩터링을 함께 커밋하지 않음).
+- 커밋 메시지 마지막 줄에 `Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>`를 포함합니다.
