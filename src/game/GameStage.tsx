@@ -8,7 +8,6 @@ import Balloon from './Balloon'
 import useBalloons from './useBalloons'
 import { getBalloonLevelConfig } from './balloonLevels'
 import splitBalloon from './splitBalloon'
-import ClearOverlay from './ClearOverlay'
 import LivesDisplay from './LivesDisplay'
 import { distance, circleIntersectsRect } from './collision'
 import { MISSION_1_SPEED_SCALE, createMission1Balloons } from './missions/mission1'
@@ -21,9 +20,10 @@ const PLAYER_LAUNCH_Y = window.innerHeight - PLAYER_BOTTOM_OFFSET - PLAYER_HEIGH
 type GameStageProps = {
   lives: number
   onPlayerHit: () => void
+  onCleared: () => void
 }
 
-function GameStage({ lives, onPlayerHit }: GameStageProps) {
+function GameStage({ lives, onPlayerHit, onCleared }: GameStageProps) {
   const x = usePlayerMovement(window.innerWidth, PLAYER_WIDTH)
   const [wire, dismissWire] = useWireLaunch(x, PLAYER_WIDTH, PLAYER_LAUNCH_Y)
   const [balloons, setBalloons] = useBalloons(
@@ -63,6 +63,10 @@ function GameStage({ lives, onPlayerHit }: GameStageProps) {
 
   const isCleared = balloons.length === 0
 
+  useEffect(() => {
+    if (isCleared) onCleared()
+  }, [isCleared, onCleared])
+
   return (
     <div className="game-screen">
       <LivesDisplay lives={lives} />
@@ -76,7 +80,6 @@ function GameStage({ lives, onPlayerHit }: GameStageProps) {
           radius={getBalloonLevelConfig(balloon.level).radius}
         />
       ))}
-      {isCleared && <ClearOverlay />}
     </div>
   )
 }
