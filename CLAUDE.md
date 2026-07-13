@@ -32,3 +32,10 @@ npm run lint      # Oxlint 린트 실행
 - TypeScript 설정은 `tsconfig.json`(참조용)에서 `tsconfig.app.json`(앱 소스용)과 `tsconfig.node.json`(Vite 설정 등 Node 환경용)으로 분리되어 있습니다.
 
 이 프로젝트는 Vite의 `react-ts` 템플릿으로 스캐폴딩된 초기 상태이며, 아직 라우팅, 상태 관리, API 통신 계층 등은 추가되지 않았습니다.
+
+## 설계 문서
+
+- 이 프로젝트는 PANG(퐁) 게임을 Phase 단위로 나누어 구현합니다. 전체 Phase 계획은 `docs/PLAN.md`를 참고하세요.
+- 각 Phase별 상세 구현 설계는 `docs/design/phase{N}.md`에 기록됩니다 (예: `docs/design/phase1.md` — Phase 1: 메인 화면 UI 설계).
+- Phase 1 설계에 따르면 화면 단위 컴포넌트는 `src/screens/` 아래에 위치하며(예: `src/screens/MainScreen.tsx`, `src/screens/MainScreen.css`), `App.tsx`는 화면 상태에 따라 해당 화면 컴포넌트를 렌더링하는 역할을 담당하도록 확장될 예정입니다.
+- 새로운 Phase를 구현하기 전에는 해당 Phase의 `docs/design/phase{N}.md` 설계 문서를 먼저 확인하고, 설계와 다르게 구현할 경우 문서도 함께 갱신하세요.
