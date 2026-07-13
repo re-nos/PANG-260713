@@ -1,0 +1,9 @@
+.wire {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 20px;
+  background: #ffffff;
+  will-change: transform;
+}
