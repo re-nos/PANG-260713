@@ -8,6 +8,7 @@ import Balloon from '../game/Balloon'
 import useBalloons from '../game/useBalloons'
 import { getBalloonLevelConfig } from '../game/balloonLevels'
 import splitBalloon from '../game/splitBalloon'
+import ClearOverlay from '../game/ClearOverlay'
 
 const PLAYER_WIDTH = 40
 const PLAYER_HEIGHT = 60
@@ -46,6 +47,8 @@ function GameScreen() {
     dismissWire()
   }, [wire, balloons, dismissWire, setBalloons])
 
+  const isCleared = balloons.length === 0
+
   return (
     <div className="game-screen">
       <Player x={x} />
@@ -58,6 +61,7 @@ function GameScreen() {
           radius={getBalloonLevelConfig(balloon.level).radius}
         />
       ))}
+      {isCleared && <ClearOverlay />}
     </div>
   )
 }
