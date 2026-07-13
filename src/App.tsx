@@ -1,7 +1,8 @@
 import './App.css'
+import MainScreen from './screens/MainScreen'
 
 function App() {
-  return <h1>Hello World</h1>
+  return <MainScreen onStart={() => console.log('start clicked')} />
 }
 
 export default App
