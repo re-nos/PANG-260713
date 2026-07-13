@@ -11,13 +11,12 @@ import splitBalloon from './splitBalloon'
 import ClearOverlay from './ClearOverlay'
 import LivesDisplay from './LivesDisplay'
 import { distance, circleIntersectsRect } from './collision'
+import { MISSION_1_SPEED_SCALE, createMission1Balloons } from './missions/mission1'
 
 const PLAYER_WIDTH = 40
 const PLAYER_HEIGHT = 60
 const PLAYER_BOTTOM_OFFSET = 24
 const PLAYER_LAUNCH_Y = window.innerHeight - PLAYER_BOTTOM_OFFSET - PLAYER_HEIGHT
-
-const INITIAL_BALLOON_LEVEL = 3
 
 type GameStageProps = {
   lives: number
@@ -27,16 +26,12 @@ type GameStageProps = {
 function GameStage({ lives, onPlayerHit }: GameStageProps) {
   const x = usePlayerMovement(window.innerWidth, PLAYER_WIDTH)
   const [wire, dismissWire] = useWireLaunch(x, PLAYER_WIDTH, PLAYER_LAUNCH_Y)
-  const [balloons, setBalloons] = useBalloons(window.innerWidth, window.innerHeight, [
-    {
-      id: crypto.randomUUID(),
-      level: INITIAL_BALLOON_LEVEL,
-      x: window.innerWidth / 2,
-      y: getBalloonLevelConfig(INITIAL_BALLOON_LEVEL).radius * 2,
-      vx: 160,
-      vy: 0,
-    },
-  ])
+  const [balloons, setBalloons] = useBalloons(
+    window.innerWidth,
+    window.innerHeight,
+    createMission1Balloons(window.innerWidth),
+    MISSION_1_SPEED_SCALE,
+  )
 
   useEffect(() => {
     if (!wire) return

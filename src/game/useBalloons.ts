@@ -12,7 +12,12 @@ export type BalloonState = {
   vy: number
 }
 
-function useBalloons(stageWidth: number, stageHeight: number, initial: BalloonState[]) {
+function useBalloons(
+  stageWidth: number,
+  stageHeight: number,
+  initial: BalloonState[],
+  speedScale = 1,
+) {
   const [balloons, setBalloons] = useState(initial)
 
   useEffect(() => {
@@ -20,7 +25,7 @@ function useBalloons(stageWidth: number, stageHeight: number, initial: BalloonSt
     let lastTime = performance.now()
 
     const tick = (time: number) => {
-      const dt = (time - lastTime) / 1000
+      const dt = ((time - lastTime) / 1000) * speedScale
       lastTime = time
 
       setBalloons((prev) =>
@@ -56,7 +61,7 @@ function useBalloons(stageWidth: number, stageHeight: number, initial: BalloonSt
     raf = requestAnimationFrame(tick)
 
     return () => cancelAnimationFrame(raf)
-  }, [stageWidth, stageHeight])
+  }, [stageWidth, stageHeight, speedScale])
 
   return [balloons, setBalloons] as const
 }
