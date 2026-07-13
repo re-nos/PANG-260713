@@ -4,7 +4,11 @@ import GameOverOverlay from '../game/GameOverOverlay'
 
 const INITIAL_LIVES = 3
 
-function GameScreen() {
+type GameScreenProps = {
+  onExitToMain: () => void
+}
+
+function GameScreen({ onExitToMain }: GameScreenProps) {
   const [lives, setLives] = useState(INITIAL_LIVES)
   const [stageKey, setStageKey] = useState(0)
 
@@ -17,7 +21,7 @@ function GameScreen() {
   }
 
   if (lives <= 0) {
-    return <GameOverOverlay />
+    return <GameOverOverlay onConfirm={onExitToMain} />
   }
 
   return <GameStage key={stageKey} lives={lives} onPlayerHit={handlePlayerHit} />

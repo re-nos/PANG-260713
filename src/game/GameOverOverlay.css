@@ -16,8 +16,16 @@
   letter-spacing: 4px;
 }
 
-.game-over-overlay__hint {
-  margin: 0;
-  color: #9ca3af;
-  font-size: 18px;
+.game-over-overlay__button {
+  padding: 12px 32px;
+  font-size: 20px;
+  color: #16171d;
+  background: #c084fc;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.game-over-overlay__button:hover {
+  background: #d8a8ff;
 }

@@ -9,7 +9,7 @@ function App() {
   const [screen, setScreen] = useState<Screen>('main')
 
   if (screen === 'game') {
-    return <GameScreen />
+    return <GameScreen onExitToMain={() => setScreen('main')} />
   }
 
   return <MainScreen onStart={() => setScreen('game')} />

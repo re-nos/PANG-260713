@@ -1,10 +1,16 @@
 import './GameOverOverlay.css'
 
-function GameOverOverlay() {
+type GameOverOverlayProps = {
+  onConfirm: () => void
+}
+
+function GameOverOverlay({ onConfirm }: GameOverOverlayProps) {
   return (
     <div className="game-over-overlay">
       <p className="game-over-overlay__title">GAME OVER</p>
-      <p className="game-over-overlay__hint">새로고침(F5) 후 다시 도전해 주세요.</p>
+      <button className="game-over-overlay__button" onClick={onConfirm}>
+        메인 화면으로
+      </button>
     </div>
   )
 }
