@@ -1,0 +1,13 @@
+.game-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 100vh;
+  background: #16171d;
+}
+
+.game-screen__placeholder {
+  color: #9ca3af;
+  font-size: 20px;
+}
