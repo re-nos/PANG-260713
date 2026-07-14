@@ -4,7 +4,7 @@ import { getBalloonLevelConfig, type BalloonLevel } from '../balloonLevels'
 export const MISSION_1_SPEED_SCALE = 0.6
 
 export function createMission1Balloons(stageWidth: number): BalloonState[] {
-  const level: BalloonLevel = 2
+  const level: BalloonLevel = 3
   const radius = getBalloonLevelConfig(level).radius
 
   return [

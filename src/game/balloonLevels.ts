@@ -1,11 +1,10 @@
 export const BALLOON_LEVELS = [
-  { level: 1, radius: 12, riseSpeed: 280 },
-  { level: 2, radius: 24, riseSpeed: 360 },
-  { level: 3, radius: 36, riseSpeed: 440 },
-  { level: 4, radius: 48, riseSpeed: 520 },
+  { level: 1, radius: 20, riseSpeed: 320 },
+  { level: 2, radius: 40, riseSpeed: 400 },
+  { level: 3, radius: 64, riseSpeed: 480 },
 ] as const
 
-export const MAX_BALLOON_LEVEL = 4
+export const MAX_BALLOON_LEVEL = 3
 
 export type BalloonLevel = (typeof BALLOON_LEVELS)[number]['level']
 
