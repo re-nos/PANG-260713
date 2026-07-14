@@ -24,7 +24,7 @@ type GameStageProps = {
 }
 
 function GameStage({ lives, onPlayerHit, onCleared }: GameStageProps) {
-  const x = usePlayerMovement(window.innerWidth, PLAYER_WIDTH)
+  const { x, facing } = usePlayerMovement(window.innerWidth, PLAYER_WIDTH)
   const [wire, dismissWire] = useWireLaunch(x, PLAYER_WIDTH, PLAYER_LAUNCH_Y)
   const [balloons, setBalloons] = useBalloons(
     window.innerWidth,
@@ -70,7 +70,7 @@ function GameStage({ lives, onPlayerHit, onCleared }: GameStageProps) {
   return (
     <div className="game-screen">
       <LivesDisplay lives={lives} />
-      <Player x={x} />
+      <Player x={x} facing={facing} />
       {wire && <Wire x={wire.x} y={wire.y} />}
       {balloons.map((balloon) => (
         <Balloon

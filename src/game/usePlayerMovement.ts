@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react'
 
+type Facing = 'left' | 'right'
+
 function clamp(value: number, min: number, max: number) {
   return Math.max(min, Math.min(value, max))
 }
 
 function usePlayerMovement(stageWidth: number, playerWidth: number, speed = 240) {
   const [x, setX] = useState(() => (stageWidth - playerWidth) / 2)
+  const [facing, setFacing] = useState<Facing>('right')
 
   useEffect(() => {
     setX((prev) => clamp(prev, 0, stageWidth - playerWidth))
@@ -31,6 +34,7 @@ function usePlayerMovement(stageWidth: number, playerWidth: number, speed = 240)
       lastTime = time
       const dir = (pressed.right ? 1 : 0) - (pressed.left ? 1 : 0)
       if (dir !== 0) {
+        setFacing(dir > 0 ? 'right' : 'left')
         setX((prev) => clamp(prev + dir * speed * dt, 0, stageWidth - playerWidth))
       }
       raf = requestAnimationFrame(tick)
@@ -47,7 +51,7 @@ function usePlayerMovement(stageWidth: number, playerWidth: number, speed = 240)
     }
   }, [stageWidth, playerWidth, speed])
 
-  return x
+  return { x, facing }
 }
 
 export default usePlayerMovement
