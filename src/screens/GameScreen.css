@@ -3,5 +3,11 @@
   width: 100%;
   min-height: 100vh;
   overflow: hidden;
-  background: #16171d;
+  background: linear-gradient(
+    180deg,
+    #6ec6ff 0%,
+    #a9dcff 45%,
+    #bfe9c8 46%,
+    #5ea86b 100%
+  );
 }

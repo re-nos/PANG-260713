@@ -6,7 +6,7 @@
   gap: 32px;
   width: 100%;
   min-height: 100vh;
-  background: #16171d;
+  background: linear-gradient(180deg, #1e2a4a 0%, #3d2c5e 55%, #16171d 100%);
 }
 
 .main-screen__title {
