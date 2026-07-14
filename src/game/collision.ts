@@ -10,3 +10,10 @@ export function circleIntersectsRect(
   const closestY = Math.max(rect.top, Math.min(circle.y, rect.bottom))
   return distance(circle, { x: closestX, y: closestY }) <= circle.radius
 }
+
+export function pointInRect(
+  point: { x: number; y: number },
+  rect: { left: number; top: number; right: number; bottom: number },
+) {
+  return point.x >= rect.left && point.x <= rect.right && point.y >= rect.top && point.y <= rect.bottom
+}

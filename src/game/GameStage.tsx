@@ -9,8 +9,9 @@ import useBalloons from './useBalloons'
 import { getBalloonLevelConfig } from './balloonLevels'
 import splitBalloon from './splitBalloon'
 import LivesDisplay from './LivesDisplay'
-import { distance, circleIntersectsRect } from './collision'
-import { MISSION_1_SPEED_SCALE, createMission1Balloons } from './missions/mission1'
+import Obstacle from './Obstacle'
+import { distance, circleIntersectsRect, pointInRect } from './collision'
+import { MISSION_1_SPEED_SCALE, createMission1Balloons, createMission1Obstacles } from './missions/mission1'
 
 const PLAYER_WIDTH = 40
 const PLAYER_HEIGHT = 60
@@ -24,7 +25,12 @@ type GameStageProps = {
 }
 
 function GameStage({ lives, onPlayerHit, onCleared }: GameStageProps) {
-  const { x, facing } = usePlayerMovement(window.innerWidth, PLAYER_WIDTH)
+  const obstacles = createMission1Obstacles(window.innerWidth, window.innerHeight)
+  const playerBlockingRanges = obstacles
+    .filter((o) => o.top < PLAYER_LAUNCH_Y + PLAYER_HEIGHT && o.bottom > PLAYER_LAUNCH_Y)
+    .map((o) => ({ left: o.left, right: o.right }))
+
+  const { x, facing } = usePlayerMovement(window.innerWidth, PLAYER_WIDTH, undefined, playerBlockingRanges)
   const [wire, dismissWire] = useWireLaunch(x, PLAYER_WIDTH, PLAYER_LAUNCH_Y)
   const [balloons, setBalloons] = useBalloons(
     window.innerWidth,
@@ -44,6 +50,13 @@ function GameStage({ lives, onPlayerHit, onCleared }: GameStageProps) {
     setBalloons((prev) => prev.flatMap((balloon, i) => (i === hitIndex ? splitBalloon(balloon) : [balloon])))
     dismissWire()
   }, [wire, balloons, dismissWire, setBalloons])
+
+  useEffect(() => {
+    if (!wire) return
+    if (obstacles.some((obstacle) => pointInRect(wire, obstacle))) {
+      dismissWire()
+    }
+  }, [wire, obstacles, dismissWire])
 
   useEffect(() => {
     const playerRect = {
@@ -70,6 +83,9 @@ function GameStage({ lives, onPlayerHit, onCleared }: GameStageProps) {
   return (
     <div className="game-screen">
       <LivesDisplay lives={lives} />
+      {obstacles.map((obstacle, i) => (
+        <Obstacle key={i} obstacle={obstacle} />
+      ))}
       <Player x={x} facing={facing} />
       {wire && <Wire x={wire.x} y={wire.y} />}
       {balloons.map((balloon) => (
