@@ -1,20 +1,25 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 
+type WirePhase = 'out' | 'back'
+
 type Wire = {
   x: number
   y: number
+  phase: WirePhase
 }
 
 function useWireLaunch(playerX: number, playerWidth: number, launchY: number, speed = 480) {
   const [wire, setWire] = useState<Wire | null>(null)
   const wireRef = useRef(wire)
   wireRef.current = wire
+  const playerXRef = useRef(playerX)
+  playerXRef.current = playerX
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.code !== 'Space') return
       if (wireRef.current) return
-      setWire({ x: playerX + playerWidth / 2, y: launchY })
+      setWire({ x: playerXRef.current + playerWidth / 2, y: launchY, phase: 'out' })
     }
 
     let raf: number
@@ -25,8 +30,16 @@ function useWireLaunch(playerX: number, playerWidth: number, launchY: number, sp
       lastTime = time
       setWire((prev) => {
         if (!prev) return prev
-        const nextY = prev.y - speed * dt
-        return nextY <= 0 ? null : { ...prev, y: nextY }
+
+        if (prev.phase === 'out') {
+          const nextY = prev.y - speed * dt
+          if (nextY <= 0) return { ...prev, y: 0, phase: 'back' }
+          return { ...prev, y: nextY }
+        }
+
+        const nextY = prev.y + speed * dt
+        if (nextY >= launchY) return null
+        return { x: playerXRef.current + playerWidth / 2, y: nextY, phase: 'back' }
       })
       raf = requestAnimationFrame(tick)
     }
@@ -37,7 +50,7 @@ function useWireLaunch(playerX: number, playerWidth: number, launchY: number, sp
       cancelAnimationFrame(raf)
       window.removeEventListener('keydown', onKeyDown)
     }
-  }, [playerX, playerWidth, launchY, speed])
+  }, [playerWidth, launchY, speed])
 
   const dismissWire = useCallback(() => setWire(null), [])
 
