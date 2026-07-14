@@ -3,7 +3,21 @@
   top: 0;
   left: 0;
   width: 4px;
-  height: 20px;
-  background: #ffffff;
+  height: 22px;
+  background: linear-gradient(180deg, #f1f5f9 0%, #cbd5e1 60%, #94a3b8 100%);
+  border-radius: 1px;
   will-change: transform;
+}
+
+.wire::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-bottom: 6px solid #e2e8f0;
+  transform: translateX(-50%);
 }
